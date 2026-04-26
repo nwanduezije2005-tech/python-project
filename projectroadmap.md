@@ -8,3 +8,4 @@
 ## Progress
 - Started working on element input program
 - Added duplicate checking
+- [x] Upload initial Python file (DONE)
