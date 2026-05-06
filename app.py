@@ -1,5 +1,5 @@
 # SmartPlate Project
-# Ezijie Nwandu
+# Ezije Nwandu
 # Purpose: Automate plate tracking and billing
 # for conveyor belt sushi restaurants
 
