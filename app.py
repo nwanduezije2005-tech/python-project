@@ -1,61 +1,54 @@
-# update 2
-# update 1
-# P2M5 Final Project
-# Ezije Nwandu
+# SmartPlate Project
+# Ezijie Nwandu
+# Purpose: Automate plate tracking and billing
+# for conveyor belt sushi restaurants
 
-def get_names():
-    elements = []
+from flask import Flask
 
-    while len(elements) < 5:
-        name = input("Enter the name of an element: ").lower().strip()
+app = Flask(__name__)
 
-        if name == "":
-            continue
+# Sample sushi plate data
+plates = [
+    {"type": "Salmon Roll", "price": 5},
+    {"type": "Tuna Roll", "price": 6},
+    {"type": "Shrimp Tempura", "price": 7}
+]
 
-        if name in elements:
-            print(name, "was already entered")
-        else:
-            elements.append(name)
+# Home page
+@app.route('/')
+def home():
+    return """
+    <h1>Welcome to SmartPlate</h1>
+    <p>A smart restaurant billing system for conveyor belt sushi restaurants.</p>
+    <p>Use /bill to view the customer bill.</p>
+    """
 
-    return elements
+# Billing page
+@app.route('/bill')
+def bill():
+
+    total = 0
+
+    bill_output = "<h1>Customer Bill</h1>"
+
+    for plate in plates:
+        bill_output += f"<p>{plate['type']} - ${plate['price']}</p>"
+        total += plate['price']
+
+    bill_output += f"<h2>Total: ${total}</h2>"
+
+    return bill_output
 
 
-# open the file
-file = open("elements1_20.txt", "r")
-
-elements_list = []
-
-# read file line by line
-for line in file:
-    elements_list.append(line.strip().lower())
-
-file.close()
+# About page
+@app.route('/about')
+def about():
+    return """
+    <h1>About SmartPlate</h1>
+    <p>This project was designed using Python and Flask.</p>
+    <p>The goal is to automate restaurant plate tracking and billing.</p>
+    """
 
 
-print("Welcome Ezije Nwandu, list any 5 of the first 20 elements in the Periodic table")
-
-# get user input
-user_list = get_names()
-
-correct = []
-incorrect = []
-
-# check answers
-for item in user_list:
-    if item in elements_list:
-        correct.append(item)
-    else:
-        incorrect.append(item)
-
-# calculate score
-score = len(correct) * 20
-
-print()
-print(str(score) + " % correct")
-
-# print results
-if correct:
-    print("Found:", " ".join([word.title() for word in correct]))
-
-if incorrect:
-    print("Not Found:", " ".join([word.title() for word in incorrect]))
+if __name__ == "__main__":
+    app.run(debug=True)
